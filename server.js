@@ -1,7 +1,8 @@
 import express from "express";
 import pkg from "whatsapp-web.js";
 const { Client, LocalAuth } = pkg;
-import qrcode from "qrcode-terminal";
+import qrcode from "qrcode";
+
 
 const app = express();
 app.use(express.json());
@@ -12,7 +13,8 @@ const client = new Client({
 
 client.on("qr", async qr => {
   const qrUrl = await qrcode.toDataURL(qr);
-  console.log("Open this link to scan the QR:", qrUrl);
+  console.log("🔗 Open this link to scan the QR with your phone:");
+  console.log(qrUrl);
 });
 
 client.on("ready", () => console.log("✅ WhatsApp client is ready!"));
