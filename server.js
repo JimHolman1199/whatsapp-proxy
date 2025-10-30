@@ -10,9 +10,9 @@ const client = new Client({
   authStrategy: new LocalAuth({ dataPath: "./.wpp-session" }),
 });
 
-client.on("qr", qr => {
-  console.log("Scan this QR code in your WhatsApp app:");
-  qrcode.generate(qr, { small: true });
+client.on("qr", async qr => {
+  const qrUrl = await qrcode.toDataURL(qr);
+  console.log("Open this link to scan the QR:", qrUrl);
 });
 
 client.on("ready", () => console.log("✅ WhatsApp client is ready!"));
